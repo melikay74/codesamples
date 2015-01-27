@@ -1,0 +1,65 @@
+Contact Us sidebar widget, http://www.kcet.org/news/redefine/
+php, Movable Type, js, jQuery
+ /*** CONTACT US FORM SHOW/HIDE TOGGLE ***/
+  $("div.contactus button.tellus").click(function() {
+    $("#contact").slideDown();
+    $(this).hide();
+  });
+  
+  PHP for Contact Us Form:
+  <?php
+
+/******** START DOMAIN CHECK ********/
+if( empty($_SERVER['HTTP_REFERER']) ){
+ header( 'Location: /news/redefine/' );
+}else{
+ preg_match("/^(http:\/\/)?([^\/]+)/i", $_SERVER['HTTP_REFERER'], $result);
+}
+$domain = $result[2];
+
+// If domain matches any of the following process form
+if($domain == "www.kcet.org" || $domain == "kcet.org")
+{
+/******** START DOMAIN CHECK ********/
+$visitoremail = "no-reply@kcet.org";
+$visitorname = htmlspecialchars($_POST['rdname']);
+if($_POST['rdemail']){
+$visitoremail = htmlspecialchars($_POST['rdemail']);
+}
+$visitordetail = stripcslashes(htmlspecialchars($_POST['rddetails']));
+$subject = "Redefine Enquiry";
+$rdcontact = "redefine@kcet.org";
+$todayis = date("l, F j, Y, g:i a") ;
+$attn = $rdcontact;
+
+$message = "Hey Redefine! \n
+From: $visitorname ($visitoremail)\n
+Message: $visitordetail \n";
+$from = "From: $visitoremail\r\n";
+
+mail($rdcontact, $subject, $message, $from);
+
+//header( 'Location: '.$returnpage ); 
+echo "<div class=\"rdconfirm\">Thank you. Your message has been sent.</div>
+  <div class=\"relinks\">
+    <div class=\"resocial clearfix\">
+      <span>Follow Us!</span>
+      <div class=\"refb\">
+         <a class=\"sm-fb\" title=\"Follow Redefine on Facebook\" href=\"https://www.facebook.com/kcetredefine\">FB</a>
+      </div>
+      <div class=\"retw\">
+         <a class=\"sm-tw\" title=\"Follow Redefine on Twitter\" href=\"https://twitter.com/KCETredefine\">TW</a>
+      </div>
+    </div>";
+
+/******** END DOMAIN CHECK ********/
+}else{
+  // If form data not submitted from kcet.org then redirect to blog home page.
+  header( 'Location: /news/redefine/' );
+}
+/******* END DOMAIN CHECK ********/
+
+?>
+  
+  
+
