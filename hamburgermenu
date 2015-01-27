@@ -1,0 +1,25 @@
+'Hamburger' button, http://www.kcet.org/news/redefine/
+
+  if( $("div.remenu").length > 0 ){
+    /** LOAD DNAV TO VARIABLE **/
+    $.get( "/news/redefine/renav.html", function( data ) {
+      $("div.remenu").show();
+      $("div.remenu-area").html(data);
+    });
+    /** TOGGLE MENU **/
+    var rebtn = $("div.remenu-btn");
+    $("div.remenu-btn a").click(function(evt){
+      evt.stopPropagation();
+      if(rebtn.hasClass("active")){
+        rebtn.removeClass("active");
+        } else {
+        rebtn.addClass("active");
+        }
+      $("div.renav").toggle();
+    });
+    $(document).click(function(){
+        rebtn.removeClass("active");
+        $("div.renav").hide();
+    });
+  }
+  
