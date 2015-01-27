@@ -1,0 +1,13 @@
+  var searchDefaultText = $(".search-input").attr("value");
+  
+  $(".search-input").focus(function(){  
+    if($(this).attr("value") == searchDefaultText) $(this).attr("value", "");  
+  });  
+  $(".search-input").blur(function(){  
+     if($(this).attr("value") == "") $(this).attr("value", searchDefaultText);  
+  });
+  $("#search a, div.closesearch").click(function(){
+	$(".container.search").toggleClass("active");
+	$("#search-input").focus();
+	return false;
+  });
