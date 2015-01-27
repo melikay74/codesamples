@@ -1,0 +1,13 @@
+http://www.kcet.org/about/50/
+
+    var totalCount = 8; 
+    var num = Math.ceil( Math.random() * totalCount );
+    function setBGImage() { 
+        var bgimage = 'http://www.kcet.org/about/50/images/bg'+num+'.jpg';
+        $('#content').css(
+        {
+        backgroundImage:"url("+bgimage+")",
+        backgroundRepeat: "no-repeat"
+        }); 
+    } 
+    setBGImage(); 
