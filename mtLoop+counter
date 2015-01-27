@@ -1,0 +1,65 @@
+Used Movable Type language to create a loop of MT entries and MT pages, interspersed with static content 
+http://www.kcet.org/about/50/get-inspired/
+    
+<$mt:var name="maxcount" value="50"$>
+
+<mt:Pages tag="@50things">
+  <$mt:PageDate format="%Y%m%e%H%M%S" setvar="pubdate"$>
+  <mt:SetVarBlock name="boxes{$pubdate}">
+    <$mt:Include module="Page Box"$>
+  </mt:SetVarBlock>
+  <$mt:var name="maxcount" op="--" setvar="maxcount"$>
+</mt:Pages>
+
+<mt:If name="maxcount" gt="0">
+  <mt:Entries blog_ids="2678,2456,2686,1860,761,25,2185,1240,2184,1834" tag="@50things" lastn="$maxcount">
+    <$mt:EntryDate format="%Y%m%e%H%M%S" setvar="pubdate"$>
+      <mt:SetVarBlock name="boxes{$pubdate}">
+        <$mt:Include module="50 Things Entry Box" blog_id="2728"$>
+      </mt:SetVarBlock>
+  </mt:Entries>
+</mt:If>
+
+
+<div class="content-widget clearfix">
+
+  <div class="cw-header">
+    <div class="cat-page-title">Get Inspired</div>
+    <div class="cat-page-desc">See how Californians can create a better state.</div>
+  </div>
+
+  <$mt:Include module="50th Share"$>
+
+  <div class="cw-content">
+   <div class="more-group active">
+
+    <mt:Loop name="boxes" sort_by="key reverse">
+       <$mt:var name="__value__"$>
+       <$mt:var name="__counter__" op="-" value="5" setvar="mfive"$>
+ 
+       <mt:If name="mfive" op="%" value="10" eq="0">
+         <$mt:Include module="50 Things Static Content" firststatic="1"$>
+       </mt:If>
+
+       <$mt:var name="__counter__" op="-" value="8" setvar="meight"$>
+ 
+       <mt:If name="meight" op="%" value="10" eq="0">
+         <$mt:Include module="50 Things Static Content" secondstatic="1"$>
+       </mt:If>
+
+       <mt:If name="__counter__" op="%" value="10" eq="0">
+         <mt:Unless name="__last__">
+           </div><!--.more-group-->
+           <div class="more-group">
+         </mt:Unless>
+       </mt:If>
+
+    </mt:Loop> 
+
+    </div><!--.more-group-->
+    <div class="more-box">
+      <a class="more-trigger" href="#" onclick="trackEvent('Homepage','Recent Stories','More');return false;">Load More</a>
+     </div>
+
+  </div>
+</div>
