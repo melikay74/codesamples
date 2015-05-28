@@ -1,0 +1,73 @@
+USING BEFORE & AFTER JQUERY PLUGIN FOR BEFORE AND AFTER FUNCTIONALITY, BUT USING CUSTOM JS/JQUERY TO SWAP THE IMAGE SETS ON CLICK 
+(VIEW HERE: http://www.kcet.org/news/climate_change_la/future_possibilities/)
+
+$(document).ready(function() {
+
+  /*** BEFORE&AFTER ***/
+  function baCreate(){
+    if( $(".beforeafter").length > 0 ){
+      $.each($(".beforeafter"),function(i, val){
+        $(this).beforeAfter({
+	  animateIntro:true,
+	  imagePath:'/news/climate_change_la/images/',
+	  introDuration : 600,
+	  introPosition : .5,
+  	  showFullLinks : true,
+	  beforeLinkText: 'Show before',
+	  afterLinkText: 'Show after',
+	  cursor: 'e-resize',
+	  enableKeyboard: true,
+	  dividerColor: '#070'
+        });
+      });//END EACH
+    }//END CHECK BEFOREAFTER
+  }
+
+  /** SWAPPING **/
+
+  baCreate();
+
+  $(".fp-asset").live("click", function() {
+
+    imgb = $(this).attr("data-before");    
+    imga = $(this).attr("data-after");    
+    imgd = $(this).attr("data-desc");    
+    imgl = $(this).attr("data-label");    
+
+    bimg = $("<img>");
+    bimg.attr("src", imgb).height(390).width(860);
+    aimg = $("<img>");
+    aimg.attr("src", imga).height(390).width(860);
+
+    //clear content of div but retain div structure
+    $(".beforeafter").attr("style", "").html("").append(bimg).append(aimg);
+
+    //create rcred span if image has rendering credit
+    if (imgd.length > 0) {
+      $(".banote.rcred").html("").append("Rendering Credit:" + imgd); 
+     } else {
+      $(".banote.rcred").html("") //clear content, retain span for other credits
+     }  
+
+    $(".balinks").remove(); //will be re-rendered & populated by baCreate
+
+    $(".ba-content #fpa-desc").html("").append(imgl);
+
+    baCreate();
+
+    goToByScroll("#batop");
+
+    
+  }); 
+ 
+
+
+
+}); //END READY
+
+
+function goToByScroll(id){
+   $('html,body').animate({scrollTop: $(id).offset().top-75},'slow');
+}
+
+
