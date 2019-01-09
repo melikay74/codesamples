@@ -78,12 +78,6 @@ define(['eventemitter2','game_custom_events','game_animation', 'game_drag_drop',
             var _style = null;
             var hasCollision = false;
 
-            // if (event.type === 'touchend') {
-            //     agf.GameVars.endTime = new Date().getTime();
-            //     if (agf.GameVars.endTime - agf.GameVars.startTime > GameData.roWaitTime) {
-            //         return;
-            //     }
-            // }
             for (var i = 0; i < agf.GameVars.clickables.length; i++) {
                 _style = agf.GameProgress.getStyle(agf.GameVars.clickables[i]);
                 hasCollision = agf.GameProgress.hitCheck(_pos,_style);
@@ -217,11 +211,10 @@ define(['eventemitter2','game_custom_events','game_animation', 'game_drag_drop',
             if (agf.GameVars.roundPhase == 0) {
                 agf.GameMain.roundSetup();
             } else {
-                // agf.GameAudio.play(agf.GameVars.sndUrl + GameData.roundData[agf.GameVars.roundNum].instructPrompt + '.mp3', 'instructPrompt');
                 agf.GameAudio.reset();
-            agf.GameInactivity.reset();
-            agf.GameInactivity.start();
-            agf.GameEvents.addGameListeners();
+                agf.GameInactivity.reset();
+                agf.GameInactivity.start();
+                agf.GameEvents.addGameListeners();
             }
         },
         
@@ -401,7 +394,6 @@ define(['eventemitter2','game_custom_events','game_animation', 'game_drag_drop',
         },
 
         resetForNextRound: function() {
-            // agf.GameInactivity.reset();
             agf.GameVars.phaseCaCount = 0;
           
             //reset interactive objects
@@ -415,7 +407,6 @@ define(['eventemitter2','game_custom_events','game_animation', 'game_drag_drop',
         },
  
         endGame: function() {
-            // agf.GameInactivity.reset();
             agf.GameVars.gameTracker.ticketMachine();
         },
 
